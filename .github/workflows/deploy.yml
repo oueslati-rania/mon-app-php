@@ -1,5 +1,4 @@
-# .github/workflows/deploy.yml
-name: Déploiement PHP sur Railway
+name: Déploiement Railway (nouveau CLI)
 
 on:
   push:
@@ -14,10 +13,15 @@ jobs:
     - name: Checkout du code
       uses: actions/checkout@v3
 
-    - name: Installer Railway CLI
-      run: npm install -g railway
+    - name: Installer Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
 
-    - name: Déployer avec Railway
+    - name: Installer Railway CLI via npx
+      run: npm install @railway/cli -g
+
+    - name: Déploiement avec Railway
       env:
         RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
       run: railway up
