@@ -1,4 +1,4 @@
-name: Déploiement Railway (nouveau CLI)
+name: Déploiement Railway (action officielle)
 
 on:
   push:
@@ -10,18 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout du code
-      uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Installer Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-
-    - name: Installer Railway CLI via npx
-      run: npm install @railway/cli -g
-
-    - name: Déploiement avec Railway
-      env:
-        RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-      run: railway up
+      - name: Déployer sur Railway
+        uses: railwayapp/action@v1
+        with:
+          railwayToken: ${{ secrets.RAILWAY_TOKEN }}
