@@ -1,4 +1,4 @@
-name: Déploiement Railway (action officielle)
+name: Déploiement Railway via NPX
 
 on:
   push:
@@ -10,9 +10,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout du code
+        uses: actions/checkout@v3
 
-      - name: Déployer sur Railway
-        uses: railwayapp/action@v1
+      - name: Installer Node.js
+        uses: actions/setup-node@v3
         with:
-          railwayToken: ${{ secrets.RAILWAY_TOKEN }}
+          node-version: '18'
+
+      - name: Déployer avec Railway via npx
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: npx -y @railway/cli up
