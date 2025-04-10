@@ -13,12 +13,12 @@ jobs:
       - name: Checkout du code
         uses: actions/checkout@v3
 
-      - name: Installer Node.js
+      - name: Installer Node.js (nécessaire pour Railway CLI)
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      - name: Déployer avec Railway via npx
+      - name: Déployer avec Railway via NPX
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: npx -y @railway/cli up
